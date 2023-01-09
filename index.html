@@ -1,0 +1,343 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body style="overflow: hidden;">
+  
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="openModal"
+    style="display: none;">
+    Launch demo modal
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Aleo BingoFi</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Please select the game mode and Enter your crypto address:</p>
+          <div id="bingo_moves">
+            <input type="radio" id="move_1" name="bingo_move" value="25"> 25 move Bingo<br>
+            <input type="radio" id="move_2" name="bingo_move" value="50"> 50 move Bingo<br>
+      
+          </div>
+          <form action="">
+		  <div style="margin-top: 24px;">
+			  <p style="font-weight: bold;"> Give your Aleo public key or connect to your Coinbase wallet. </p>
+		  </div>	
+            <div style="margin-top: 24px;">
+              <label for="address_key_user" class="form-label">Aleo Public Address Key of user: </label>
+              <input type="text" class="form-control" id="address_key_user" name="address_key_user" value="aleo182cerh4lym9a628npmtt7dmrsm3892ppdz897uwc4lqa9vcazs9sgrnqhm" readonly><br><br>
+            </div>
+
+          </form>
+
+          <h3 id="disp" style="color:green;margin-top: -24px;"> </h3>
+          <h4 id="error" style="color:red"> </h4>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="coinbase_button" onclick="coinbase_button()"
+            data-bs-dismiss="modal">Sign-in using CoinBase(Future)</button>
+          <button type="button" class="btn btn-success" id="proceed_button" onclick="proceed_to_game()" >Proceed To Game</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="aboutModalLabel">About Aleo BingoFi</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row" style="text-align: center;">
+	 <h5> A modern version of Bingo, powered by Cloud and Aleo Crytpo </h5>
+	 <p>BingoFi is a modern, online, crypto powered friendly game where the participants can play a game of Bingo with the computer. 
+
+BingoFi can be played in single-player mode and multi-player mode powered by Aleo Tokens
+
+An online fully functional version is deployed on GCP cloud
+</p>
+		  
+            
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#accountModal" id="openAccountModal"
+  style="display: none;">
+  Launch demo modal
+</button>
+
+  <div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="accountModalLabel">About BingoFi</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row" style="text-align: center;">
+            <div class="col-md-8">
+              <form name="cryptoaction">
+                <table class="table" style="width: 50%;">
+                  <thead>
+                    <tr>
+                      <td style="font-weight: bold;" scope="col">Player</td>
+                      <td style="font-weight: bold;" scope="col">Address</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>J.A.R.V.I.S</td>
+                      <td>aleo10z520frfeahvcafyv57pd3ff6g8utw5vzmrj9fm0nptyxwrtfyys5734zw</td>
+		      </tr>
+		      <tr>
+                      <td>ABC</td>
+                      <td>aleo182cerh4lym9a628npmtt7dmrsm3892ppdz897uwc4lqa9vcazs9sgrnqhm</td>
+                    </tr>
+                    
+                    <tr>
+                      <td colspan="4"><label value="Status showne here" id="statuslabel">XXXXX----- Status ----- XXXXX </td>
+        
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+            </div>
+            
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row" style="justify-content: end;">
+    <nav class="navbar navbar-light bg-light">
+  <span class="navbar-brand mb-0 h3">Aleo BingoFi</span>
+      <ul class="nav justify-content-end" style="background-color: #e3f2fd;">
+        <li class="nav-item">
+          <button type="button" class="btn btn-link" style="width: 5%;" onclick="home()">Home</button>
+        </li>
+        <li class="nav-item">
+          <button type="button" class="btn btn-link" style="width: 5%;" data-bs-toggle="modal" data-bs-target="#aboutModal">About</button>
+        </li>
+      </ul>
+    </nav>
+    </div>
+
+
+    <br/>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row">
+	<h5 style="font-weight: bold;">Last Ball: <span id="js-last-num" class="last-num">Click to Draw</span></h5>
+        </div>
+        <div class="row" style="text-align: center;">
+          <div style="margin-top:-10px;">
+            <p>Draw History</p>
+            <ol id="js-history" style="text-align: left;"></ol>
+          </div>
+          <div>
+            <input id="js-card" type="button" class="btn btn-primary mx-3" value="Fill Card">
+            <input id="js-draw" type="button" class="btn btn-warning mx-2" value="Draw Number" autofocus>
+            <input id="js-reset" class="display-none" type="button" value="Reset">
+          </div>
+        </div>
+        <div class="row">
+          <div class="column">
+            <table id="bingo-card" style="margin-left: 250px; margin-top: 10px;" >
+              <tr>
+                <th>B</th>
+                <th>I</th>
+                <th>N</th>
+                <th>G</th>
+                <th>O</th>
+              </tr>
+              <tr>
+                <td class="js-card-cell" data-min="1" data-max="15"></td>
+                <td class="js-card-cell" data-min="16" data-max="30"></td>
+                <td class="js-card-cell" data-min="31" data-max="45"></td>
+                <td class="js-card-cell" data-min="46" data-max="60"></td>
+                <td class="js-card-cell" data-min="61" data-max="75"></td>
+              </tr>
+              <tr>
+                <td class="js-card-cell" data-min="1" data-max="15"></td>
+                <td class="js-card-cell" data-min="16" data-max="30"></td>
+                <td class="js-card-cell" data-min="31" data-max="45"></td>
+                <td class="js-card-cell" data-min="46" data-max="60"></td>
+                <td class="js-card-cell" data-min="61" data-max="75"></td>
+              </tr>
+              <tr>
+                <td class="js-card-cell" data-min="1" data-max="15"></td>
+                <td class="js-card-cell" data-min="16" data-max="30"></td>
+                <td class="marked">FREE</td>
+                <td class="js-card-cell" data-min="46" data-max="60"></td>
+                <td class="js-card-cell" data-min="61" data-max="75"></td>
+              </tr>
+              <tr>
+                <td class="js-card-cell" data-min="1" data-max="15"></td>
+                <td class="js-card-cell" data-min="16" data-max="30"></td>
+                <td class="js-card-cell" data-min="31" data-max="45"></td>
+                <td class="js-card-cell" data-min="46" data-max="60"></td>
+                <td class="js-card-cell" data-min="61" data-max="75"></td>
+              </tr>
+              <tr>
+                <td class="js-card-cell" data-min="1" data-max="15"></td>
+                <td class="js-card-cell" data-min="16" data-max="30"></td>
+                <td class="js-card-cell" data-min="31" data-max="45"></td>
+                <td class="js-card-cell" data-min="46" data-max="60"></td>
+                <td class="js-card-cell" data-min="61" data-max="75"></td>
+              </tr>
+            </table>
+          </div>
+          
+        </div>
+      </div>
+      <div class="col-md-4">
+        <table id="bingo-caller" style="margin-left: 100px; margin-top:-20px;">
+          <tr>
+            <th>B</th>
+            <th>I</th>
+            <th>N</th>
+            <th>G</th>
+            <th>O</th>
+          </tr>
+          <tr>
+            <td id="js-caller-B-1" class="js-caller-cell">1</td>
+            <td id="js-caller-I-16" class="js-caller-cell">16</td>
+            <td id="js-caller-N-31" class="js-caller-cell">31</td>
+            <td id="js-caller-G-46" class="js-caller-cell">46</td>
+            <td id="js-caller-O-61" class="js-caller-cell">61</td>
+          </tr>
+          <tr>
+            <td id="js-caller-B-2" class="js-caller-cell">2</td>
+            <td id="js-caller-I-17" class="js-caller-cell">17</td>
+            <td id="js-caller-N-32" class="js-caller-cell">32</td>
+            <td id="js-caller-G-47" class="js-caller-cell">47</td>
+            <td id="js-caller-O-62" class="js-caller-cell">62</td>
+          </tr>
+          <tr>
+            <td id="js-caller-B-3" class="js-caller-cell">3</td>
+            <td id="js-caller-I-18" class="js-caller-cell">18</td>
+            <td id="js-caller-N-33" class="js-caller-cell">33</td>
+            <td id="js-caller-G-48" class="js-caller-cell">48</td>
+            <td id="js-caller-O-63" class="js-caller-cell">63</td>
+          </tr>
+          <tr>
+            <td id="js-caller-B-4" class="js-caller-cell">4</td>
+            <td id="js-caller-I-19" class="js-caller-cell">19</td>
+            <td id="js-caller-N-34" class="js-caller-cell">34</td>
+            <td id="js-caller-G-49" class="js-caller-cell">49</td>
+            <td id="js-caller-O-64" class="js-caller-cell">64</td>
+          </tr>
+          <tr>
+            <td id="js-caller-B-5" class="js-caller-cell">5</td>
+            <td id="js-caller-I-20" class="js-caller-cell">20</td>
+            <td id="js-caller-N-35" class="js-caller-cell">35</td>
+            <td id="js-caller-G-50" class="js-caller-cell">50</td>
+            <td id="js-caller-O-65" class="js-caller-cell">65</td>
+          </tr>
+          <tr>
+            <td id="js-caller-B-6" class="js-caller-cell">6</td>
+            <td id="js-caller-I-21" class="js-caller-cell">21</td>
+            <td id="js-caller-N-36" class="js-caller-cell">36</td>
+            <td id="js-caller-G-51" class="js-caller-cell">51</td>
+            <td id="js-caller-O-66" class="js-caller-cell">66</td>
+          </tr>
+          <tr>
+            <td id="js-caller-B-7" class="js-caller-cell">7</td>
+            <td id="js-caller-I-22" class="js-caller-cell">22</td>
+            <td id="js-caller-N-37" class="js-caller-cell">37</td>
+            <td id="js-caller-G-52" class="js-caller-cell">52</td>
+            <td id="js-caller-O-67" class="js-caller-cell">67</td>
+          </tr>
+          <tr>
+            <td id="js-caller-B-8" class="js-caller-cell">8</td>
+            <td id="js-caller-I-23" class="js-caller-cell">23</td>
+            <td id="js-caller-N-38" class="js-caller-cell">38</td>
+            <td id="js-caller-G-53" class="js-caller-cell">53</td>
+            <td id="js-caller-O-68" class="js-caller-cell">68</td>
+          </tr>
+          <tr>
+            <td id="js-caller-B-9" class="js-caller-cell">9</td>
+            <td id="js-caller-I-24" class="js-caller-cell">24</td>
+            <td id="js-caller-N-39" class="js-caller-cell">39</td>
+            <td id="js-caller-G-54" class="js-caller-cell">54</td>
+            <td id="js-caller-O-69" class="js-caller-cell">69</td>
+          </tr>
+          <tr>
+            <td id="js-caller-B-10" class="js-caller-cell">10</td>
+            <td id="js-caller-I-25" class="js-caller-cell">25</td>
+            <td id="js-caller-N-40" class="js-caller-cell">40</td>
+            <td id="js-caller-G-55" class="js-caller-cell">55</td>
+            <td id="js-caller-O-70" class="js-caller-cell">70</td>
+          </tr>
+          <tr>
+            <td id="js-caller-B-11" class="js-caller-cell">11</td>
+            <td id="js-caller-I-26" class="js-caller-cell">26</td>
+            <td id="js-caller-N-41" class="js-caller-cell">41</td>
+            <td id="js-caller-G-56" class="js-caller-cell">56</td>
+            <td id="js-caller-O-71" class="js-caller-cell">71</td>
+          </tr>
+          <tr>
+            <td id="js-caller-B-12" class="js-caller-cell">12</td>
+            <td id="js-caller-I-27" class="js-caller-cell">27</td>
+            <td id="js-caller-N-42" class="js-caller-cell">42</td>
+            <td id="js-caller-G-57" class="js-caller-cell">57</td>
+            <td id="js-caller-O-72" class="js-caller-cell">72</td>
+          </tr>
+          <tr>
+            <td id="js-caller-B-13" class="js-caller-cell">13</td>
+            <td id="js-caller-I-28" class="js-caller-cell">28</td>
+            <td id="js-caller-N-43" class="js-caller-cell">43</td>
+            <td id="js-caller-G-58" class="js-caller-cell">58</td>
+            <td id="js-caller-O-73" class="js-caller-cell">73</td>
+          </tr>
+          <tr>
+            <td id="js-caller-B-14" class="js-caller-cell">14</td>
+            <td id="js-caller-I-29" class="js-caller-cell">29</td>
+            <td id="js-caller-N-44" class="js-caller-cell">44</td>
+            <td id="js-caller-G-59" class="js-caller-cell">59</td>
+            <td id="js-caller-O-74" class="js-caller-cell">74</td>
+          </tr>
+          <tr>
+            <td id="js-caller-B-15" class="js-caller-cell">15</td>
+            <td id="js-caller-I-30" class="js-caller-cell">30</td>
+            <td id="js-caller-N-45" class="js-caller-cell">45</td>
+            <td id="js-caller-G-60" class="js-caller-cell">60</td>
+            <td id="js-caller-O-75" class="js-caller-cell">75</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="bingo.js"></script>
+</body>
+
+</html>
